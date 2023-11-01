@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SportX</title>
+    <link rel="stylesheet" href="../static/style/tweet.css" />
+    <link rel="icon" type="image/x-icon" href="../static/res/icon.png" />
+
+    <script src="/static/lib/search.js"></script>
+    <script src="/static/lib/tweets.js"></script>
+    <script src="/static/lib/socket.io.js"></script>
+    <script src="/static/lib/core.js"></script>
+    <script src="/static/lib/linechart.js"></script>
+    <script src="/static/lib/chart.js"></script>
+    <script src="/static/lib/piechart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1"></script>
+    <script src="/static/lib/buttons.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="navbar">
+        <div class="icon">
+          <img src="../static/res/logo.png" />
+        </div>
+        <div class="search-container">
+          <input
+            type="text"
+            placeholder="Search..."
+            class="search"
+            id="searchInput"
+          />
+          <button class="search-button" id="searchButton">
+            <img src="../static/res/search.png" height="20" width="20" />
+          </button>
+        </div>
+      </div>
+      <div class="main">
+        <div class="tweet-info">
+          <div class="tweet-hot"></div>
+          <div class="tweet-desc"></div>
+        </div>
+        <div class="tweet-list">
+          <div class="categories">
+            <button id="basketballButton" class="category">Basketball</button>
+            <button id="tennisButton" class="category">Tennis</button>
+            <button id="baseballButton" class="category">Baseball</button>
+            <button id="volleyballButton" class="category">Volleyball</button>
+            <button id="cricketButton" class="category">Cricket</button>
+            <button id="footballButton" class="category">Soccer</button>
+            <button id="basketballButton" class="category">Football</button>
+            <button id="rugbyButton" class="category">Rugby</button>
+
+            <script>
+              var myButton = document.getElementById(id);
+
+              // Attach the handleClick function from the external script to the button's click event
+              myButton.onclick = handleClick;
+              // let x = buttons("basketballButton");
+              // connect_block(x, "buttonFunc");
+            </script>
+          </div>
+
+          <div class="list">
+            <div
+              style="
+                width: 90%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                background-color: white;
+                border: 2px solid #ccc;
+                overflow: hidden;
+                border-radius: 15px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+              "
+              id="tweets"
+            ></div>
+            <script>
+              let tweet_block = tweets("tweets");
+              connect_block(tweet_block, "tweet_stream");
+            </script>
+          </div>
+        </div>
+        <div class="tweet-charts">
+          <div class="chart">
+            <div
+              style="
+                width: 100%;
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                background-color: white;
+              "
+            >
+              <canvas id="myChart"></canvas>
+            </div>
+            <script>
+              let chart = piechart("myChart");
+              connect_block(chart, "piechart");
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
