@@ -1,23 +1,24 @@
-function performSearch() {
-  const keyword = document.getElementById('searchInput').value;
-  socket.emit('search', keyword);
-}
-
 document.addEventListener("DOMContentLoaded", function() {
+  function performSearch(keyword) {
+    console.log(keyword);
+    socket.emit('search', keyword);
+  }
+
   const searchButton = document.getElementById("searchButton");
   const searchInput = document.getElementById("searchInput");
 
-  searchButton.addEventListener("click", function() {
-    const keyword = searchInput.value;
-    // Call your search function here
-    console.log(keyword);
-    performSearch(keyword);
-  });
-});
-
-document.getElementById('searchInput').addEventListener('keydown', function(event) {
-  if (event.keyCode === 13) {  // 13 is the keyCode for the Enter key
-      // Trigger your search function here
+  if (searchButton && searchInput) {
+    searchButton.addEventListener("click", function() {
+      const keyword = searchInput.value;
       performSearch(keyword);
+    });
+
+    searchInput.addEventListener('keydown', function(event) {
+      if (event.keyCode === 13) {
+        performSearch(searchInput.value);
+      }
+    });
+  } else {
+    console.error('Search input or button not found!');
   }
 });
