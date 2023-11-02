@@ -1,5 +1,5 @@
 function tweets(id, config = {
-    "tweetLimit": 3,
+    "tweetLimit": 7,
 }) {
 
     // initialize the block
