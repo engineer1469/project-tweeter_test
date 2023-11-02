@@ -76,20 +76,18 @@ body {
   justify-content: flex-start;
   align-items: center;
   width: 30%;
-  background-color: red;
+  background-color: white;
 }
 
 .main > .tweet-info > .tweet-hot {
-  width: 100%;
-  flex: 3;
+  width: 90%;
+  height: 100%;
   background-color: white;
-}
-
-.main > .tweet-info > .tweet-desc {
-  width: 100%;
-  flex: 7;
-  background-color: white;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
 }
 
 /* LIST */
@@ -122,6 +120,16 @@ body {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+}
+
+.main > .tweet-list > .categories > #none {
+  background-color: white;
+  color: black;
+}
+
+.main > .tweet-list > .categories > #none:hover {
+  background-color: black;
+  color: white;
 }
 
 .main > .tweet-list > .categories > .category:hover {
@@ -169,19 +177,6 @@ body {
 .main > .tweet-charts > .chart {
   width: 75%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 ==========================================================================================================================
@@ -267,6 +262,7 @@ body {
 
 .tweet-wrapper {
   border: 1px solid #ccc;
+  background-color: white;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
@@ -312,3 +308,18 @@ body {
   color: #1da1f2;
   text-decoration: none;
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ECAF14;
+  border-radius: 6px;
+}
+
