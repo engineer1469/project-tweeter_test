@@ -3,6 +3,11 @@ from neca.events import *
 from neca.generators import generate_data
 from neca.events import emit
 import json
+from neca.events import create_context, Ruleset
+from neca.settings import app, socket
+from flask import Flask, request, send_file, jsonify
+
+import random
 
 tweet_history = []
 
@@ -53,19 +58,31 @@ def my_event_handler(context, data):
     if sport != 'none':
         emit("piechart", {"action": "add", "value": [sport, 1]})
 
-
-@event("search")
-def search(context, keyword):
+@app.route('/search', methods=['POST'])
+def search():
     print("search triggered")
-    # Read the tweet_history.json file
-    with open('tweet_history.json', 'r') as f:
-        tweet_history = json.load(f)
+    try:
+        keyword = request.json.get('keyword')
+        with open('tweet_history.json', 'r') as f:
+            tweet_history = json.load(f)
+        
+        data = request.json
+        keyword = data['keyword']
+        found_tweets = [tweet for tweet in tweet_history if keyword.lower() in tweet['text'].lower()]
+        print(found_tweets)
+            # Emit the found tweets
+        for tweet in found_tweets:
+            emit("tweet_stream", tweet)
 
-    # Search for the keyword in the tweets
-    found_tweets = [tweet for tweet in tweet_history if keyword.lower() in tweet['text'].lower()]
-    print(found_tweets)
-    # Emit the found tweets
-    for tweet in found_tweets:
-        emit("tweet_stream", tweet)
+        return jsonify(found_tweets)
+    except json.JSONDecodeError as e:
+        app.logger.error(f'JSON decode error in tweet_history.json: {e}')
+        return jsonify({'error': 'Invalid JSON format in tweet_history.json'}), 500
+    except Exception as e:
+        app.logger.error(f'Unexpected error: {e}')
+        return jsonify({'error': 'An unexpected error occurred'}), 500
+
+
+
 
 neca.start()
